@@ -5,6 +5,7 @@ services:
   app:
     build: .
     entrypoint: ./.docker/entrypoint.sh
+    user: root
     ports: 
       - 3000:3000
     volumes:
