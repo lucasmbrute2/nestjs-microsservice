@@ -1,15 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { CreateRouteDto } from './dto/create-route.dto';
 import { UpdateRouteDto } from './dto/update-route.dto';
+import { Route, RouteDocument } from './entities/route.entity';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class RoutesService {
+  constructor(
+    @InjectModel(Route.name) private routeModel: Model<RouteDocument>,
+  ) {}
+
   create(createRouteDto: CreateRouteDto) {
     return 'This action adds a new route';
   }
 
-  findAll() {
-    return `This action returns all routes`;
+  findAll(): Promise<RouteDocument[]> {
+    return this.routeModel.find().exec();
   }
 
   findOne(id: number) {
